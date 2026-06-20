@@ -224,6 +224,20 @@ async def show_note(
 
     note = get_note(note_id)
 
+    if not note:
+        await callback.answer(
+            "Заметка не найдена.",
+            show_alert=True
+        )
+        return
+
+    if note[1] != callback.from_user.id:
+        await callback.answer(
+            "Это не ваша заметка!",
+            show_alert=True
+        )
+        return
+
     keyboard = InlineKeyboardMarkup(
         inline_keyboard=[
             [
@@ -302,6 +316,22 @@ async def delete_callback(
     note_id = int(
         callback.data.split("_")[1]
     )
+
+    note = get_note(note_id)
+
+    if not note:
+        await callback.answer(
+            "Заметка не найдена.",
+            show_alert=True
+        )
+        return
+
+    if note[1] != callback.from_user.id:
+        await callback.answer(
+            "Это не ваша заметка!",
+            show_alert=True
+        )
+        return
 
     delete_note(note_id)
 
