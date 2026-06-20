@@ -185,7 +185,6 @@ async def list_notes(message: Message):
 
     buttons = []
 
-    # вложенный цикл специально для проекта
     for note in notes:
 
         row = []
